@@ -13,10 +13,9 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaFacebook, FaWhatsapp } from 'react-icons/fa';
+import { FaFacebook, FaWhatsapp } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { LogOut } from "lucide-react";
-
 
 import { Button } from "@/components/ui/button";
 import {
@@ -32,16 +31,15 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-
 // Animation variants
 const fadeIn = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.6 } }
+  visible: { opacity: 1, transition: { duration: 0.6 } },
 };
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
 const staggerContainer = {
@@ -49,19 +47,19 @@ const staggerContainer = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2
-    }
-  }
+      staggerChildren: 0.2,
+    },
+  },
 };
 
 const itemFadeIn = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
+  visible: { opacity: 1, y: 0 },
 };
 
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.9 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
 };
 
 // Replace Card component with animated version
@@ -71,12 +69,15 @@ export default function Portfolio() {
   const router = useRouter();
   const [authentication, setAuthentication] = React.useState(false);
   const [confirm, setconfirm] = React.useState(true);
- 
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen ">
       {/* Left Sidebar */}
       <motion.aside
-        className="w-64 bg-blue-400 text-white flex flex-col fixed h-screen z-40"
+        className={`w-64 bg-blue-400 text-white flex-col fixed h-screen z-40 
+        hidden lg:block lg:top-0
+        transition-all duration-300`}
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -105,7 +106,6 @@ export default function Portfolio() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-
             Yenghoua
           </motion.h2>
         </div>
@@ -162,12 +162,11 @@ export default function Portfolio() {
         </nav>
         <div className="p-4 text-sm text-white/70">
           <p>© {new Date().getFullYear()} Yenghoua Vue</p>
-
         </div>
       </motion.aside>
 
       {/* Main Content */}
-      <main className="ml-64 flex-1 bg-background">
+      <main className="flex-1 bg-background lg:ml-64 px-4 sm:px-6 lg:px-8">
         <motion.header
           className="sticky top-0 z-10 w-full border-b bg-background/80 backdrop-blur-lg supports-[backdrop-filter]:bg-background/40"
           initial={{ y: -20, opacity: 0 }}
@@ -175,26 +174,76 @@ export default function Portfolio() {
           transition={{ duration: 0.5 }}
         >
           <div className="container flex h-16 items-center justify-end">
-            <div className="flex items-center justify-end  gap-2 ">
+            <div className="flex items-center justify-end gap-2">
+              <div className="lg:hidden relative">
+                <button
+                  className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                >
+                  {/* Hamburger Icon */}
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  </svg>
+                </button>
+
+                {/* Mobile Menu Dropdown */}
+                {/* {mobileMenuOpen && (
+                <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="absolute right-0 mt-2 w-48 bg-background rounded-md shadow-lg py-1 z-50"
+                >
+                {[
+                  { href: "#home", text: "Home", icon: <Home className="h-4 w-4" /> },
+                  { href: "#about", text: "About", icon: <MessageCircle className="h-4 w-4" /> },
+                  { href: "#projects", text: "Projects", icon: <Briefcase className="h-4 w-4" /> },
+                  { href: "#skills", text: "Skills", icon: <Star className="h-4 w-4" /> },
+                  { href: "#contact", text: "Contact", icon: <User className="h-4 w-4" /> },
+                ].map((item) => (
+                  <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+                  >
+                  <span className="mr-2">{item.icon}</span>
+                  {item.text}
+                  </Link>
+                ))}
+                </motion.div>
+              )} */}
+              </div>
               <ThemeToggle />
               <Button
                 variant="outline"
                 size="icon"
                 asChild
-                className="hover:bg-blue-400 hover:shadow-lg"
+                className="bg-blue-400 hover:bg-blue-400 hover:shadow-lg hidden lg:flex items-center justify-center transition-all duration-300"
               >
                 <Link
                   href="https://github.com"
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="flex items-center justify-center"
                 >
-                  <Github className="h-4 w-4 " />
+                  <Github className="h-4 w-4" />
                   <span className="sr-only">GitHub</span>
                 </Link>
               </Button>
               <Button
                 asChild
-                className="bg-blue-400 hover:bg-blue-400 hover:shadow-lg"
+                className="bg-blue-400 hover:bg-blue-400 hover:shadow-lg hidden lg:flex items-center justify-center transition-all duration-300"
               >
                 <Link href="#contact">Contact Me</Link>
               </Button>
@@ -240,7 +289,7 @@ export default function Portfolio() {
             variants={staggerContainer}
           >
             <motion.h1
-              className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter"
               variants={fadeInUp}
             >
               Hi, I'm{" "}
@@ -250,10 +299,8 @@ export default function Portfolio() {
                   color: ["#60a5fa", "#3b82f6", "#60a5fa"],
                 }}
                 transition={{ duration: 3, repeat: Infinity }}
-                
               >
                 {/* <p className="font-hand">This text uses Edu NSW ACT Foundation font</p> */}
-
                 Yenghoua Vue
               </motion.span>
             </motion.h1>
@@ -311,7 +358,7 @@ export default function Portfolio() {
             variants={fadeIn}
           >
             <motion.div className="mb-12" variants={fadeInUp}>
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter">
                 About Me
               </h2>
               <motion.div
@@ -361,7 +408,7 @@ export default function Portfolio() {
                       whileTap={{ scale: 0.95 }}
                     >
                       <Link
-                        href="/resume.pdf"
+                        href="/CV.pdf"
                         className="inline-flex items-center gap-2"
                       >
                         Download Resume
@@ -390,7 +437,7 @@ export default function Portfolio() {
             variants={fadeIn}
           >
             <motion.div className="mb-12" variants={fadeInUp}>
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter">
                 Featured Projects
               </h2>
               <motion.div
@@ -405,7 +452,7 @@ export default function Portfolio() {
               </p>
             </motion.div>
             <motion.div
-              className="flex flex-row justify-between  md:grid-cols-2 lg:grid-cols-3 "
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6"
               variants={staggerContainer}
             >
               <AnimatedProjectCard
@@ -416,7 +463,6 @@ export default function Portfolio() {
                 tags={["HTML", "CSS", "JAVA Script"]}
                 link="https://yeng-profolio-001.netlify.app/"
                 variants={scaleIn}
-               
               />
 
               <AnimatedProjectCard
@@ -427,8 +473,6 @@ export default function Portfolio() {
                 link="#"
                 variants={scaleIn}
               />
-
-              
             </motion.div>
             {/* <motion.div className="text-center mt-10" variants={fadeInUp}>
               <Button variant="outline" asChild>
@@ -467,7 +511,7 @@ export default function Portfolio() {
             variants={fadeIn}
           >
             <motion.div className="mb-12" variants={fadeInUp}>
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter">
                 Skills & Expertise
               </h2>
               <motion.div
@@ -482,7 +526,7 @@ export default function Portfolio() {
               </p>
             </motion.div>
             <motion.div
-              className="grid gap-8 md:grid-cols-2"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
               variants={staggerContainer}
             >
               <AnimatedSkillCategory
@@ -512,12 +556,7 @@ export default function Portfolio() {
               />
               <AnimatedSkillCategory
                 title="Tools & Others"
-                skills={[
-                  "Canva",
-                  "Git",
-                  "ChatGPT",
-                  "Microft Word",
-                ]}
+                skills={["Canva", "Git", "ChatGPT", "Microft Word"]}
                 variants={scaleIn}
               />
             </motion.div>
@@ -534,7 +573,7 @@ export default function Portfolio() {
             variants={fadeIn}
           >
             <motion.div className="mb-12" variants={fadeInUp}>
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter">
                 Get In Touch
               </h2>
               <motion.div
@@ -549,7 +588,7 @@ export default function Portfolio() {
               </p>
             </motion.div>
             <motion.div
-              className="grid gap-8 md:grid-cols-2"
+              className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"
               variants={staggerContainer}
             >
               <AnimatedCard variants={scaleIn}>
@@ -664,7 +703,12 @@ export default function Portfolio() {
                     whileTap={{ scale: 0.97 }}
                     className="w-full"
                   >
-                    <a className="bg-blue-400 border-black flex justify-center items-center w-full py-2 rounded-md hover:bg-blue-500" href="https://mail.google.com/mail/u/0/#inbox">Send</a>
+                    <a
+                      className="bg-blue-400 border-black flex justify-center items-center w-full py-2 rounded-md hover:bg-blue-500"
+                      href="https://mail.google.com/mail/u/0/#inbox"
+                    >
+                      Send
+                    </a>
                   </motion.div>
                 </CardFooter>
               </AnimatedCard>
@@ -688,6 +732,119 @@ export default function Portfolio() {
             </motion.div>
           </div>
         </footer>
+
+        {/* Mobile Menu Overlay */}
+        {mobileMenuOpen && (
+          <motion.div 
+            className="fixed inset-0 z-30 lg:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {/* Backdrop */}
+            <motion.div
+              className="fixed inset-0 bg-black/50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileMenuOpen(false)}
+            />
+
+            {/* Centered mobile menu panel */}
+            <motion.div 
+              className="fixed inset-0 flex items-center justify-end p-4"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 500 }}
+            >
+              <motion.nav 
+          className="bg-blue-500 rounded-2xl shadow-2xl"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+              >
+          {/* Header with close button */}
+          <motion.div 
+            className="flex justify-end p-4 pb-2"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            <motion.button
+              className="p-2 text-white hover:bg-blue-600 rounded-lg transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+              whileHover={{ rotate: 180 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <svg
+                className="h-5 w-5"
+                fill="none" 
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </motion.button>
+          </motion.div>
+
+          {/* Navigation menu */}
+          <motion.div 
+            className="px-6 pb-6"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            <motion.ul 
+              className="space-y-3"
+              variants={{
+                hidden: { opacity: 0 },
+                show: {
+            opacity: 1,
+            transition: {
+              staggerChildren: 0.1
+            }
+                }
+              }}
+              initial="hidden"
+              animate="show"
+            >
+              {[
+                { href: "#home", icon: <Home className="h-5 w-5" />, text: "Home" },
+                { href: "#about", icon: <MessageCircle className="h-5 w-5" />, text: "About" },
+                { href: "#projects", icon: <Briefcase className="h-5 w-5" />, text: "Projects" },
+                { href: "#skills", icon: <Star className="h-5 w-5" />, text: "Skills" },
+                { href: "#contact", icon: <User className="h-5 w-5" />, text: "Contact" }
+              ].map((item, index) => (
+                <motion.li
+            key={item.href}
+            variants={{
+              hidden: { x: -20, opacity: 0 },
+              show: { x: 0, opacity: 1 }
+            }}
+                >
+            <motion.a
+              href={item.href}
+              className="flex items-center gap-3 px-4 py-3 text-white hover:bg-blue-600 transition-colors rounded-lg"
+              whileHover={{ x: 10 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {item.icon}
+              <span className="font-medium">{item.text}</span>
+            </motion.a>
+                </motion.li>
+              ))}
+            </motion.ul>
+          </motion.div>
+              </motion.nav>
+            </motion.div>
+          </motion.div>
+        )}
       </main>
     </div>
   );
@@ -709,12 +866,12 @@ function AnimatedProjectCard({
   image,
   tags,
   link,
-  variants
+  variants,
 }: AnimatedProjectCardProps) {
   return (
     <motion.div variants={variants}>
       <AnimatedCard className="overflow-hidden hover:shadow-md transition-all duration-300">
-        <motion.div 
+        <motion.div
           className="relative h-48 w-full"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.3 }}
@@ -731,7 +888,7 @@ function AnimatedProjectCard({
           <CardDescription>{description}</CardDescription>
         </CardHeader>
         <CardContent>
-          <motion.div 
+          <motion.div
             className="flex flex-wrap gap-2"
             variants={staggerContainer}
             initial="hidden"
@@ -739,16 +896,14 @@ function AnimatedProjectCard({
           >
             {tags.map((tag) => (
               <motion.div key={tag} variants={itemFadeIn}>
-                <Badge variant="secondary">
-                  {tag}
-                </Badge>
+                <Badge variant="secondary">{tag}</Badge>
               </motion.div>
             ))}
           </motion.div>
         </CardContent>
         <CardFooter>
           <Button variant="outline" asChild className="w-full">
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="w-full"
@@ -757,7 +912,7 @@ function AnimatedProjectCard({
                 href={link}
                 className="inline-flex items-center justify-center gap-2"
               >
-                View Project 
+                View Project
                 <motion.span
                   animate={{ x: [0, 3, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
@@ -780,7 +935,11 @@ interface AnimatedSkillCategoryProps {
   variants: any;
 }
 
-function AnimatedSkillCategory({ title, skills, variants }: AnimatedSkillCategoryProps) {
+function AnimatedSkillCategory({
+  title,
+  skills,
+  variants,
+}: AnimatedSkillCategoryProps) {
   return (
     <motion.div variants={variants}>
       <AnimatedCard>
@@ -788,19 +947,19 @@ function AnimatedSkillCategory({ title, skills, variants }: AnimatedSkillCategor
           <CardTitle>{title}</CardTitle>
         </CardHeader>
         <CardContent>
-          <motion.div 
+          <motion.div
             className="flex flex-wrap gap-2"
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
           >
             {skills.map((skill) => (
-              <motion.div 
-                key={skill} 
+              <motion.div
+                key={skill}
                 variants={itemFadeIn}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.1,
-                  backgroundColor: "rgba(96, 165, 250, 0.2)" 
+                  backgroundColor: "rgba(96, 165, 250, 0.2)",
                 }}
               >
                 <Badge variant="outline" className="px-3 py-1">

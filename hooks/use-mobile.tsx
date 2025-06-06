@@ -1,5 +1,6 @@
 "use client"
 
+import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 
 export function useIsMobile() {
@@ -12,6 +13,7 @@ export function useIsMobile() {
 
     // Initial check
     checkIfMobile()
+    
 
     // Add event listener
     window.addEventListener("resize", checkIfMobile)

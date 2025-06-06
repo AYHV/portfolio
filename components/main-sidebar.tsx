@@ -96,7 +96,7 @@ export function MainSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <a href="/resume.pdf" className="flex items-center gap-2 text-sm font-medium" download>
+              <a href="/CV.pdf" className="flex items-center gap-2 text-sm font-medium" download>
                 <Download className="h-4 w-4" />
                 Download Resume
               </a>
