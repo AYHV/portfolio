@@ -408,7 +408,7 @@ export default function Portfolio() {
                       whileTap={{ scale: 0.95 }}
                     >
                       <Link
-                        href="/CV.pdf"
+                        href="/cv1.pdf"
                         className="inline-flex items-center gap-2"
                       >
                         Download Resume
