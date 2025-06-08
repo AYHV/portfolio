@@ -408,7 +408,7 @@ export default function Portfolio() {
                       whileTap={{ scale: 0.95 }}
                     >
                       <Link
-                        href="/cv1.pdf"
+                        href="/cv3.pdf"
                         className="inline-flex items-center gap-2"
                       >
                         Download Resume
@@ -629,12 +629,12 @@ export default function Portfolio() {
                   >
                     <Github className="h-5 w-5 text-primary" />
                     <a
-                      href="https://github.com/yourusername"
+                      href="https://github.com/AYHV"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:underline"
                     >
-                      github.com/yourusername
+                      github.com/AYHV
                     </a>
                   </motion.div>
                 </CardContent>
