@@ -75,13 +75,12 @@ export default function Portfolio() {
     <div className="flex min-h-screen ">
       {/* Left Sidebar */}
       <motion.aside
-        className={`w-64 bg-blue-400 text-white flex-col fixed h-screen z-40 
-        hidden lg:block lg:top-0
-        transition-all duration-300`}
+        className="w-64 bg-blue-400 text-white fixed h-screen z-40 hidden lg:flex lg:flex-col lg:top-0 transition-all duration-300"
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
+        {/* Top Profile Section */}
         <div className="flex flex-col items-center pt-8 pb-4">
           <motion.div
             className="relative h-36 w-36 overflow-hidden mb-4 border-1 border-background"
@@ -99,6 +98,8 @@ export default function Portfolio() {
             />
           </motion.div>
         </div>
+
+        {/* Name Section */}
         <div className="bg-secondary py-3 text-center text-secondary-foreground font-medium">
           <motion.h2
             className="text-lg"
@@ -109,7 +110,9 @@ export default function Portfolio() {
             Yenghoua
           </motion.h2>
         </div>
-        <nav className="flex-1 px-4 py-6">
+
+        {/* Main Nav Content */}
+        <nav className="flex-1 px-4 py-6 overflow-y-auto">
           <motion.ul
             className="space-y-4"
             variants={staggerContainer}
@@ -142,7 +145,7 @@ export default function Portfolio() {
                 icon: <User className="h-5 w-5" />,
                 text: "Contact",
               },
-            ].map((item, index) => (
+            ].map((item) => (
               <motion.li key={item.href} variants={itemFadeIn}>
                 <Link
                   href={item.href}
@@ -160,8 +163,10 @@ export default function Portfolio() {
             ))}
           </motion.ul>
         </nav>
-        <div className="p-4 text-sm text-white/70">
-          <p>© {new Date().getFullYear()} Yenghoua Vue</p>
+
+        {/* Sticky Footer */}
+        <div className="p-4 text-sm text-white/70 bg-blue-500 text-center">
+          © {new Date().getFullYear()} Yenghoua Vue
         </div>
       </motion.aside>
 
@@ -369,16 +374,16 @@ export default function Portfolio() {
                 transition={{ duration: 0.5 }}
               ></motion.div>
             </motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-gray-200">
               <motion.div
-                className="relative h-[400px] overflow-hidden rounded-lg"
+                className="relative h-[500px] overflow-hidden rounded-lg  "
                 variants={scaleIn}
               >
                 <Image
-                  src="/1.jpg?height=400&width=600"
+                  src="/person.png?height=500&width=600"
                   alt="About me"
                   fill
-                  className="object-cover"
+                  className="object-cover border-2 border-background rounded-lg"
                 />
               </motion.div>
               <motion.div className="space-y-4" variants={staggerContainer}>
@@ -735,7 +740,7 @@ export default function Portfolio() {
 
         {/* Mobile Menu Overlay */}
         {mobileMenuOpen && (
-          <motion.div 
+          <motion.div
             className="fixed inset-0 z-30 lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -751,96 +756,116 @@ export default function Portfolio() {
             />
 
             {/* Centered mobile menu panel */}
-            <motion.div 
+            <motion.div
               className="fixed inset-0 flex items-center justify-end p-4"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 500 }}
             >
-              <motion.nav 
-          className="bg-blue-500 rounded-2xl shadow-2xl"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.2 }}
+              <motion.nav
+                className="bg-blue-500 rounded-2xl shadow-2xl"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.2 }}
               >
-          {/* Header with close button */}
-          <motion.div 
-            className="flex justify-end p-4 pb-2"
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            <motion.button
-              className="p-2 text-white hover:bg-blue-600 rounded-lg transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-              whileHover={{ rotate: 180 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <svg
-                className="h-5 w-5"
-                fill="none" 
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </motion.button>
-          </motion.div>
-
-          {/* Navigation menu */}
-          <motion.div 
-            className="px-6 pb-6"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            <motion.ul 
-              className="space-y-3"
-              variants={{
-                hidden: { opacity: 0 },
-                show: {
-            opacity: 1,
-            transition: {
-              staggerChildren: 0.1
-            }
-                }
-              }}
-              initial="hidden"
-              animate="show"
-            >
-              {[
-                { href: "#home", icon: <Home className="h-5 w-5" />, text: "Home" },
-                { href: "#about", icon: <MessageCircle className="h-5 w-5" />, text: "About" },
-                { href: "#projects", icon: <Briefcase className="h-5 w-5" />, text: "Projects" },
-                { href: "#skills", icon: <Star className="h-5 w-5" />, text: "Skills" },
-                { href: "#contact", icon: <User className="h-5 w-5" />, text: "Contact" }
-              ].map((item, index) => (
-                <motion.li
-            key={item.href}
-            variants={{
-              hidden: { x: -20, opacity: 0 },
-              show: { x: 0, opacity: 1 }
-            }}
+                {/* Header with close button */}
+                <motion.div
+                  className="flex justify-end p-4 pb-2"
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.3 }}
                 >
-            <motion.a
-              href={item.href}
-              className="flex items-center gap-3 px-4 py-3 text-white hover:bg-blue-600 transition-colors rounded-lg"
-              whileHover={{ x: 10 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {item.icon}
-              <span className="font-medium">{item.text}</span>
-            </motion.a>
-                </motion.li>
-              ))}
-            </motion.ul>
-          </motion.div>
+                  <motion.button
+                    className="p-2 text-white hover:bg-blue-600 rounded-lg transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                    whileHover={{ rotate: 180 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </motion.button>
+                </motion.div>
+
+                {/* Navigation menu */}
+                <motion.div
+                  className="px-6 pb-6"
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <motion.ul
+                    className="space-y-3"
+                    variants={{
+                      hidden: { opacity: 0 },
+                      show: {
+                        opacity: 1,
+                        transition: {
+                          staggerChildren: 0.1,
+                        },
+                      },
+                    }}
+                    initial="hidden"
+                    animate="show"
+                  >
+                    {[
+                      {
+                        href: "#home",
+                        icon: <Home className="h-5 w-5" />,
+                        text: "Home",
+                      },
+                      {
+                        href: "#about",
+                        icon: <MessageCircle className="h-5 w-5" />,
+                        text: "About",
+                      },
+                      {
+                        href: "#projects",
+                        icon: <Briefcase className="h-5 w-5" />,
+                        text: "Projects",
+                      },
+                      {
+                        href: "#skills",
+                        icon: <Star className="h-5 w-5" />,
+                        text: "Skills",
+                      },
+                      {
+                        href: "#contact",
+                        icon: <User className="h-5 w-5" />,
+                        text: "Contact",
+                      },
+                    ].map((item, index) => (
+                      <motion.li
+                        key={item.href}
+                        variants={{
+                          hidden: { x: -20, opacity: 0 },
+                          show: { x: 0, opacity: 1 },
+                        }}
+                      >
+                        <motion.a
+                          href={item.href}
+                          className="flex items-center gap-3 px-4 py-3 text-white hover:bg-blue-600 transition-colors rounded-lg"
+                          whileHover={{ x: 10 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          {item.icon}
+                          <span className="font-medium">{item.text}</span>
+                        </motion.a>
+                      </motion.li>
+                    ))}
+                  </motion.ul>
+                </motion.div>
               </motion.nav>
             </motion.div>
           </motion.div>
