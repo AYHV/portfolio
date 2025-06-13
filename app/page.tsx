@@ -93,7 +93,7 @@ export default function Portfolio() {
               alt="Profile"
               width={144}
               height={144}
-              className="object-cover"
+              className="object-cover rounded-sm"
               priority
             />
           </motion.div>
@@ -200,34 +200,6 @@ export default function Portfolio() {
                     />
                   </svg>
                 </button>
-
-                {/* Mobile Menu Dropdown */}
-                {/* {mobileMenuOpen && (
-                <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="absolute right-0 mt-2 w-48 bg-background rounded-md shadow-lg py-1 z-50"
-                >
-                {[
-                  { href: "#home", text: "Home", icon: <Home className="h-4 w-4" /> },
-                  { href: "#about", text: "About", icon: <MessageCircle className="h-4 w-4" /> },
-                  { href: "#projects", text: "Projects", icon: <Briefcase className="h-4 w-4" /> },
-                  { href: "#skills", text: "Skills", icon: <Star className="h-4 w-4" /> },
-                  { href: "#contact", text: "Contact", icon: <User className="h-4 w-4" /> },
-                ].map((item) => (
-                  <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
-                  >
-                  <span className="mr-2">{item.icon}</span>
-                  {item.text}
-                  </Link>
-                ))}
-                </motion.div>
-              )} */}
               </div>
               <ThemeToggle />
               <Button
@@ -374,7 +346,7 @@ export default function Portfolio() {
                 transition={{ duration: 0.5 }}
               ></motion.div>
             </motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-gray-200">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-gray-200 rounded-sm ">
               <motion.div
                 className="relative h-[500px] overflow-hidden rounded-lg  "
                 variants={scaleIn}
@@ -383,10 +355,10 @@ export default function Portfolio() {
                   src="/person.png?height=500&width=600"
                   alt="About me"
                   fill
-                  className="object-cover border-2 border-background rounded-lg"
+                  className="object-cover border-2 border-background  rounded-sm"
                 />
               </motion.div>
-              <motion.div className="space-y-4" variants={staggerContainer}>
+              <motion.div className="space-y-4 sm:text-white md:text-white" variants={staggerContainer}>
                 <motion.p variants={fadeInUp}>
                   I'm a biggner developer with over 1 years of experience
                   building web applications. I specialize in JavaScript, React,
@@ -479,27 +451,6 @@ export default function Portfolio() {
                 variants={scaleIn}
               />
             </motion.div>
-            {/* <motion.div className="text-center mt-10" variants={fadeInUp}>
-              <Button variant="outline" asChild>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Link
-                    href="/projects"
-                    className="inline-flex items-center gap-2"
-                  >
-                    View All Projects
-                    <motion.span
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      <ArrowRight className="h-4 w-4" />
-                    </motion.span>
-                  </Link>
-                </motion.div>
-              </Button>
-            </motion.div> */}
           </motion.div>
         </section>
 
@@ -632,7 +583,7 @@ export default function Portfolio() {
                     whileHover={{ x: 5 }}
                     transition={{ type: "spring" }}
                   >
-                    <Github className="h-5 w-5 text-primary" />
+                    <Github className="h-5 w-5 text-primary text-blue-400" />
                     <a
                       href="https://github.com/AYHV"
                       target="_blank"
