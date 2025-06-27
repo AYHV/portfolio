@@ -16,8 +16,14 @@ const eduHand = Edu_NSW_ACT_Foundation({
 export const metadata: Metadata = {
   title: "Portfolio",
   description: "My professional portfolio",
-  generator: "v0.dev",
-}
+  keywords: [
+    "portfolio",
+    "web developer",
+    "developer showcase",
+    "Yenghoua Vue",
+  ],
+};
+
 
 export default function RootLayout({
   children,

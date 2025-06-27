@@ -30,6 +30,20 @@ import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useRouter } from "next/navigation";
 import React from "react";
+interface AnimatedProjectCardProps {
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  link: string;
+  variants: any;
+}
+interface AnimatedSkillCategoryProps {
+  title: string;
+  skills: string[];
+  variants: any;
+}
+
 
 // Animation variants
 const fadeIn = {
@@ -71,6 +85,114 @@ export default function Portfolio() {
   const [confirm, setconfirm] = React.useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
+  function AnimatedProjectCard({
+  title,
+  description,
+  image,
+  tags,
+  link,
+  variants,
+}: AnimatedProjectCardProps) {
+  return (
+    <motion.div variants={variants}>
+      <AnimatedCard className="overflow-hidden hover:shadow-md transition-all duration-300">
+        <motion.div
+          className="relative h-48 w-full"
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.3 }}
+        >
+          <Image
+            src={image || "/placeholder.svg"}
+            alt={title}
+            fill
+            className="object-cover"
+          />
+        </motion.div>
+        <CardHeader>
+          <CardTitle>{title}</CardTitle>
+          <CardDescription>{description}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <motion.div
+            className="flex flex-wrap gap-2"
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
+            {tags.map((tag) => (
+              <motion.div key={tag} variants={itemFadeIn}>
+                <Badge variant="secondary">{tag}</Badge>
+              </motion.div>
+            ))}
+          </motion.div>
+        </CardContent>
+        <CardFooter>
+          <Button variant="outline" asChild className="w-full">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="w-full"
+            >
+              <Link
+                href={link}
+                className="inline-flex items-center justify-center gap-2"
+              >
+                View Project
+                <motion.span
+                  animate={{ x: [0, 3, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <ExternalLink className="h-4 w-4" />
+                </motion.span>
+              </Link>
+            </motion.div>
+          </Button>
+        </CardFooter>
+      </AnimatedCard>
+    </motion.div>
+  );
+}
+
+
+
+function AnimatedSkillCategory({
+  title,
+  skills,
+  variants,
+}: AnimatedSkillCategoryProps) {
+  return (
+    <motion.div variants={variants}>
+      <AnimatedCard>
+        <CardHeader>
+          <CardTitle>{title}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <motion.div
+            className="flex flex-wrap gap-2"
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
+            {skills.map((skill) => (
+              <motion.div
+                key={skill}
+                variants={itemFadeIn}
+                whileHover={{
+                  scale: 1.1,
+                  backgroundColor: "rgba(96, 165, 250, 0.2)",
+                }}
+              >
+                <Badge variant="outline" className="px-3 py-1">
+                  {skill}
+                </Badge>
+              </motion.div>
+            ))}
+          </motion.div>
+        </CardContent>
+      </AnimatedCard>
+    </motion.div>
+  );
+}
   return (
     <div className="flex min-h-screen ">
       {/* Left Sidebar */}
@@ -827,125 +949,5 @@ export default function Portfolio() {
 }
 
 // Animated project card component
-interface AnimatedProjectCardProps {
-  title: string;
-  description: string;
-  image: string;
-  tags: string[];
-  link: string;
-  variants: any;
-}
 
-function AnimatedProjectCard({
-  title,
-  description,
-  image,
-  tags,
-  link,
-  variants,
-}: AnimatedProjectCardProps) {
-  return (
-    <motion.div variants={variants}>
-      <AnimatedCard className="overflow-hidden hover:shadow-md transition-all duration-300">
-        <motion.div
-          className="relative h-48 w-full"
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.3 }}
-        >
-          <Image
-            src={image || "/placeholder.svg"}
-            alt={title}
-            fill
-            className="object-cover"
-          />
-        </motion.div>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <motion.div
-            className="flex flex-wrap gap-2"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-          >
-            {tags.map((tag) => (
-              <motion.div key={tag} variants={itemFadeIn}>
-                <Badge variant="secondary">{tag}</Badge>
-              </motion.div>
-            ))}
-          </motion.div>
-        </CardContent>
-        <CardFooter>
-          <Button variant="outline" asChild className="w-full">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-full"
-            >
-              <Link
-                href={link}
-                className="inline-flex items-center justify-center gap-2"
-              >
-                View Project
-                <motion.span
-                  animate={{ x: [0, 3, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  <ExternalLink className="h-4 w-4" />
-                </motion.span>
-              </Link>
-            </motion.div>
-          </Button>
-        </CardFooter>
-      </AnimatedCard>
-    </motion.div>
-  );
-}
 
-// Animated skill category component
-interface AnimatedSkillCategoryProps {
-  title: string;
-  skills: string[];
-  variants: any;
-}
-
-function AnimatedSkillCategory({
-  title,
-  skills,
-  variants,
-}: AnimatedSkillCategoryProps) {
-  return (
-    <motion.div variants={variants}>
-      <AnimatedCard>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <motion.div
-            className="flex flex-wrap gap-2"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-          >
-            {skills.map((skill) => (
-              <motion.div
-                key={skill}
-                variants={itemFadeIn}
-                whileHover={{
-                  scale: 1.1,
-                  backgroundColor: "rgba(96, 165, 250, 0.2)",
-                }}
-              >
-                <Badge variant="outline" className="px-3 py-1">
-                  {skill}
-                </Badge>
-              </motion.div>
-            ))}
-          </motion.div>
-        </CardContent>
-      </AnimatedCard>
-    </motion.div>
-  );
-}
