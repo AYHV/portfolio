@@ -15,8 +15,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaFacebook, FaWhatsapp } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { LogOut } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -30,6 +28,7 @@ import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { toast } from "sonner";
 interface AnimatedProjectCardProps {
   title: string;
   description: string;
@@ -43,7 +42,6 @@ interface AnimatedSkillCategoryProps {
   skills: string[];
   variants: any;
 }
-
 
 // Animation variants
 const fadeIn = {
@@ -86,113 +84,111 @@ export default function Portfolio() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   function AnimatedProjectCard({
-  title,
-  description,
-  image,
-  tags,
-  link,
-  variants,
-}: AnimatedProjectCardProps) {
-  return (
-    <motion.div variants={variants}>
-      <AnimatedCard className="overflow-hidden hover:shadow-md transition-all duration-300">
-        <motion.div
-          className="relative h-48 w-full"
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.3 }}
-        >
-          <Image
-            src={image || "/placeholder.svg"}
-            alt={title}
-            fill
-            className="object-cover"
-          />
-        </motion.div>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
-        </CardHeader>
-        <CardContent>
+    title,
+    description,
+    image,
+    tags,
+    link,
+    variants,
+  }: AnimatedProjectCardProps) {
+    return (
+      <motion.div variants={variants}>
+        <AnimatedCard className="overflow-hidden hover:shadow-md transition-all duration-300">
           <motion.div
-            className="flex flex-wrap gap-2"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
+            className="relative h-48 w-full"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
           >
-            {tags.map((tag) => (
-              <motion.div key={tag} variants={itemFadeIn}>
-                <Badge variant="secondary">{tag}</Badge>
-              </motion.div>
-            ))}
+            <Image
+              src={image || "/placeholder.svg"}
+              alt={title}
+              fill
+              className="object-cover"
+            />
           </motion.div>
-        </CardContent>
-        <CardFooter>
-          <Button variant="outline" asChild className="w-full">
+          <CardHeader>
+            <CardTitle>{title}</CardTitle>
+            <CardDescription>{description}</CardDescription>
+          </CardHeader>
+          <CardContent>
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-full"
+              className="flex flex-wrap gap-2"
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
             >
-              <Link
-                href={link}
-                className="inline-flex items-center justify-center gap-2"
-              >
-                View Project
-                <motion.span
-                  animate={{ x: [0, 3, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  <ExternalLink className="h-4 w-4" />
-                </motion.span>
-              </Link>
+              {tags.map((tag) => (
+                <motion.div key={tag} variants={itemFadeIn}>
+                  <Badge variant="secondary">{tag}</Badge>
+                </motion.div>
+              ))}
             </motion.div>
-          </Button>
-        </CardFooter>
-      </AnimatedCard>
-    </motion.div>
-  );
-}
-
-
-
-function AnimatedSkillCategory({
-  title,
-  skills,
-  variants,
-}: AnimatedSkillCategoryProps) {
-  return (
-    <motion.div variants={variants}>
-      <AnimatedCard>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <motion.div
-            className="flex flex-wrap gap-2"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-          >
-            {skills.map((skill) => (
+          </CardContent>
+          <CardFooter>
+            <Button variant="outline" asChild className="w-full">
               <motion.div
-                key={skill}
-                variants={itemFadeIn}
-                whileHover={{
-                  scale: 1.1,
-                  backgroundColor: "rgba(96, 165, 250, 0.2)",
-                }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full"
               >
-                <Badge variant="outline" className="px-3 py-1">
-                  {skill}
-                </Badge>
+                <Link
+                  href={link}
+                  className="inline-flex items-center justify-center gap-2"
+                >
+                  View Project
+                  <motion.span
+                    animate={{ x: [0, 3, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                  </motion.span>
+                </Link>
               </motion.div>
-            ))}
-          </motion.div>
-        </CardContent>
-      </AnimatedCard>
-    </motion.div>
-  );
-}
+            </Button>
+          </CardFooter>
+        </AnimatedCard>
+      </motion.div>
+    );
+  }
+
+  function AnimatedSkillCategory({
+    title,
+    skills,
+    variants,
+  }: AnimatedSkillCategoryProps) {
+    return (
+      <motion.div variants={variants}>
+        <AnimatedCard>
+          <CardHeader>
+            <CardTitle>{title}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <motion.div
+              className="flex flex-wrap gap-2"
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+            >
+              {skills.map((skill) => (
+                <motion.div
+                  key={skill}
+                  variants={itemFadeIn}
+                  whileHover={{
+                    scale: 1.1,
+                    backgroundColor: "rgba(96, 165, 250, 0.2)",
+                  }}
+                >
+                  <Badge variant="outline" className="px-3 py-1">
+                    {skill}
+                  </Badge>
+                </motion.div>
+              ))}
+            </motion.div>
+          </CardContent>
+        </AnimatedCard>
+      </motion.div>
+    );
+  }
   return (
     <div className="flex min-h-screen ">
       {/* Left Sidebar */}
@@ -293,21 +289,21 @@ function AnimatedSkillCategory({
       </motion.aside>
 
       {/* Main Content */}
-      <main className="flex-1 bg-background lg:ml-64 px-4 sm:px-6 lg:px-8">
+      <main className="flex-1 bg-background  lg:ml-64 px-4 sm:px-6 lg:px-8">
         <motion.header
-          className="sticky top-0 z-10 w-full border-b bg-background/80 backdrop-blur-lg supports-[backdrop-filter]:bg-background/40"
+          className="sticky top-0 z-10 w-full border-b bg-blue-500 text-white shadow-md backdrop-blur-lg"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
           <div className="container flex h-16 items-center justify-end">
             <div className="flex items-center justify-end gap-2">
+              {/* Mobile Hamburger Button */}
               <div className="lg:hidden relative">
                 <button
-                  className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="p-2 rounded-md hover:bg-blue-600 transition"
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 >
-                  {/* Hamburger Icon */}
                   <svg
                     className="h-6 w-6"
                     fill="none"
@@ -323,12 +319,16 @@ function AnimatedSkillCategory({
                   </svg>
                 </button>
               </div>
+
+              {/* Theme Toggle */}
               <ThemeToggle />
+
+              {/* GitHub Button */}
               <Button
                 variant="outline"
                 size="icon"
                 asChild
-                className="bg-blue-400 hover:bg-blue-400 hover:shadow-lg hidden lg:flex items-center justify-center transition-all duration-300"
+                className="bg-white/10 hover:bg-white/20 border-white/20 text-white hidden lg:flex items-center justify-center transition-all duration-300"
               >
                 <Link
                   href="https://github.com"
@@ -340,11 +340,13 @@ function AnimatedSkillCategory({
                   <span className="sr-only">GitHub</span>
                 </Link>
               </Button>
+
+              {/* Contact Me Button */}
               <Button
                 asChild
-                className="bg-blue-400 hover:bg-blue-400 hover:shadow-lg hidden lg:flex items-center justify-center transition-all duration-300"
+                className="bg-white/10 hover:bg-white/20 text-white hidden lg:flex items-center justify-center transition-all duration-300"
               >
-                <Link href="#contact">Contact Me</Link>
+                <Link href="#contact">Contact Me</Link>   
               </Button>
             </div>
           </div>
@@ -353,76 +355,70 @@ function AnimatedSkillCategory({
         {/* Hero Section */}
         <section
           id="home"
-          className="container relative py-16 md:py-24 lg:py-32 overflow-hidden"
+          className="relative max-w-full py-20 md:py-28 lg:py-36 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-100 dark:from-gray-900 dark:via-gray-950 dark:to-black"
         >
-          <div className="absolute inset-0 -z-10">
+          {/* Blurred Background Orbs */}
+          <div className="absolute inset-0 -z-10 overflow-hidden">
             <motion.div
-              className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/10 rounded-full blur-3xl"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.7, 0.9, 0.7],
-              }}
+              className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-blue-400/20 rounded-full blur-3xl"
+              animate={{ scale: [1, 1.15, 1], opacity: [0.6, 0.8, 0.6] }}
               transition={{
-                duration: 8,
+                duration: 12,
                 repeat: Infinity,
-                repeatType: "reverse",
+                repeatType: "mirror",
               }}
-            ></motion.div>
+            />
             <motion.div
-              className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-secondary/10 rounded-full blur-3xl"
-              animate={{
-                scale: [1, 1.3, 1],
-                opacity: [0.6, 0.8, 0.6],
-              }}
+              className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-purple-500/20 rounded-full blur-3xl"
+              animate={{ scale: [1, 1.25, 1], opacity: [0.5, 0.7, 0.5] }}
               transition={{
-                duration: 10,
+                duration: 14,
                 repeat: Infinity,
-                repeatType: "reverse",
+                repeatType: "mirror",
               }}
-            ></motion.div>
+            />
           </div>
+
+          {/* Content */}
           <motion.div
-            className="max-w-3xl"
+            className="container mx-auto text-center px-6"
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
           >
             <motion.h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500"
               variants={fadeInUp}
             >
               Hi, I'm{" "}
               <motion.span
-                className="text-blue-400"
-                animate={{
-                  color: ["#60a5fa", "#3b82f6", "#60a5fa"],
-                }}
-                transition={{ duration: 3, repeat: Infinity }}
+                animate={{ color: ["#60a5fa", "#9333ea", "#60a5fa"] }}
+                transition={{ duration: 4, repeat: Infinity }}
               >
-                {/* <p className="font-hand">This text uses Edu NSW ACT Foundation font</p> */}
                 Yenghoua Vue
               </motion.span>
             </motion.h1>
+
             <motion.p
-              className="text-xl text-muted-foreground max-w-2xl mt-4"
+              className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto"
               variants={fadeInUp}
             >
-              A passionate full-stack developer specializing in creating
-              beautiful and functional web experiences.
+              A passionate full-stack developer crafting beautiful and
+              performant web experiences with modern technologies.
             </motion.p>
+
             <motion.div
-              className="flex flex-wrap gap-4 mt-6"
+              className="flex flex-wrap gap-4 mt-8 justify-center"
               variants={fadeInUp}
             >
               <Button
                 size="lg"
-                className="rounded-full px-8 bg-blue-400"
+                className="rounded-full px-8 bg-blue-500 text-white hover:bg-blue-600 transition"
                 asChild
               >
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-blue-400 hover:bg-gray-400"
                 >
                   <Link href="#projects">View My Work</Link>
                 </motion.div>
@@ -430,7 +426,7 @@ function AnimatedSkillCategory({
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-full px-8"
+                className="rounded-full px-8 border-blue-500 text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-800 transition"
                 asChild
               >
                 <motion.div
@@ -447,7 +443,7 @@ function AnimatedSkillCategory({
         {/* About Section */}
         <section
           id="about"
-          className="container py-16 md:py-24 lg:py-32 bg-muted/30"
+          className="container py-16 md:py-24 lg:py-32 bg-muted/30 "
         >
           <motion.div
             className="max-w-5xl"
@@ -480,19 +476,22 @@ function AnimatedSkillCategory({
                   className="object-cover border-2 border-background  rounded-sm"
                 />
               </motion.div>
-              <motion.div className="space-y-4 sm:text-white md:text-white" variants={staggerContainer}>
-                <motion.p variants={fadeInUp}>
+              <motion.div
+                className="space-y-4 sm:text-white md:text-white dark:text-black"
+                variants={staggerContainer}
+              >
+                <motion.p variants={fadeInUp} className=" dark:text-black">
                   I'm a biggner developer with over 1 years of experience
                   building web applications. I specialize in JavaScript, React,
                   and Next.JS, and I'm always eager to learn new technologies.
                 </motion.p>
-                <motion.p variants={fadeInUp}>
+                <motion.p variants={fadeInUp} className=" dark:text-black">
                   My journey in web development started when I built my first
                   website in college. Since then, I've worked on numerous
                   projects ranging from small business websites to complex
                   enterprise applications.
                 </motion.p>
-                <motion.p variants={fadeInUp}>
+                <motion.p variants={fadeInUp} className=" dark:text-black">
                   When I'm not coding, you can find me hiking, reading, or
                   experimenting with new recipes in the kitchen.
                 </motion.p>
@@ -724,7 +723,7 @@ function AnimatedSkillCategory({
                     I'll get back to you as soon as possible
                   </CardDescription>
                 </CardHeader>
-                {/* <CardContent>
+                <CardContent>
                   <form className="space-y-4">
                     <motion.div
                       className="grid gap-2"
@@ -774,19 +773,29 @@ function AnimatedSkillCategory({
                       />
                     </motion.div>
                   </form>
-                </CardContent> */}
+                </CardContent>
                 <CardFooter>
                   <motion.div
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     className="w-full"
                   >
-                    <a
-                      className="bg-blue-400 border-black flex justify-center items-center w-full py-2 rounded-md hover:bg-blue-500"
-                      href="https://mail.google.com/mail/u/0/#inbox"
+                   <Button
+                      className="w-full bg-blue-500 text-white hover:bg-blue-600 transition"
+                      onClick={() => {
+                        if (confirm) {
+                          // Simulate sending message
+                          setTimeout(() => {
+                            setconfirm(false);
+                          }, 1000);
+                          toast.success("Message sent successfully!");
+                        } else { 
+                          toast.error("Please fill out all fields.");   
+                        }
+                      }}
                     >
-                      Send
-                    </a>
+                      Send Message
+                    </Button>
                   </motion.div>
                 </CardFooter>
               </AnimatedCard>
@@ -949,5 +958,3 @@ function AnimatedSkillCategory({
 }
 
 // Animated project card component
-
-
