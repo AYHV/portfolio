@@ -27,8 +27,9 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { use, useEffect } from "react";
 import { toast } from "sonner";
+import ContactForm from "@/components/ui/ContactForm";
 interface AnimatedProjectCardProps {
   title: string;
   description: string;
@@ -189,7 +190,24 @@ export default function Portfolio() {
       </motion.div>
     );
   }
-  return (
+useEffect(() => {
+  // Example async call, but not awaited directly in useEffect
+  const sendTestMessage = async () => {
+    await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: "Arthur",
+        email: "arthur@example.com",
+        message: "Hello, this is a test!"
+      })
+    });
+  };
+  // Optionally call it here if needed
+  // sendTestMessage();
+}, []);
+
+return (
     <div className="flex min-h-screen ">
       {/* Left Sidebar */}
       <motion.aside
@@ -724,85 +742,13 @@ export default function Portfolio() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <form className="space-y-4">
-                    <motion.div
-                      className="grid gap-2"
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 }}
-                    >
-                      <label htmlFor="name" className="text-sm font-medium">
-                        Name
-                      </label>
-                      <input
-                        id="name"
-                        type="text"
-                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                        placeholder="Your Name"
-                      />
-                    </motion.div>
-                    <motion.div
-                      className="grid gap-2"
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      <label htmlFor="email" className="text-sm font-medium">
-                        Email
-                      </label>
-                      <input
-                        id="email"
-                        type="email"
-                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                        placeholder="your.email@example.com"
-                      />
-                    </motion.div>
-                    <motion.div
-                      className="grid gap-2"
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                    >
-                      <label htmlFor="message" className="text-sm font-medium">
-                        Message
-                      </label>
-                      <textarea
-                        id="message"
-                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 min-h-[120px]"
-                        placeholder="Your message..."
-                      />
-                    </motion.div>
-                  </form>
+                  <ContactForm />
                 </CardContent>
-                <CardFooter>
-                  <motion.div
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="w-full"
-                  >
-                   <Button
-                      className="w-full bg-blue-500 text-white hover:bg-blue-600 transition"
-                      onClick={() => {
-                        if (confirm) {
-                          // Simulate sending message
-                          setTimeout(() => {
-                            setconfirm(false);
-                          }, 1000);
-                          toast.success("Message sent successfully!");
-                        } else { 
-                          toast.error("Please fill out all fields.");   
-                        }
-                      }}
-                    >
-                      Send Message
-                    </Button>
-                  </motion.div>
-                </CardFooter>
               </AnimatedCard>
             </motion.div>
           </motion.div>
         </section>
-
+        
         {/* Footer */}
         <footer className="border-t py-8">
           <div className="container">
