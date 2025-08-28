@@ -33,10 +33,17 @@ export function ContactFormCard() {
       const result = await res.json()
 
       if (res.ok) {
+        // Temporary test - add this line
+        alert("Message sent successfully!");
+        
         toast({
+          variant: "default",
           title: "Message sent!",
           description: "Thank you for your message. I'll get back to you soon.",
         })
+        // Remove this console.log for production
+        // console.log("Message sent successfully:",res)
+
         setFormData({ name: "", email: "", message: "" })
       } else {
         toast({

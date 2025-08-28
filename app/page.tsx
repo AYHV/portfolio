@@ -211,7 +211,7 @@ return (
     <div className="flex min-h-screen ">
       {/* Left Sidebar */}
       <motion.aside
-        className="w-64 bg-blue-400 text-white fixed h-screen z-40 hidden lg:flex lg:flex-col lg:top-0 transition-all duration-300"
+        className="w-64 bg-blue-400 text-white fixed h-screen z- hidden lg:flex lg:flex-col lg:top-0 transition-all duration-300"
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -229,7 +229,7 @@ return (
               alt="Profile"
               width={144}
               height={144}
-              className="object-cover rounded-sm"
+              className="object-cover rounded-full"
               priority
             />
           </motion.div>
@@ -421,7 +421,7 @@ return (
               className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto"
               variants={fadeInUp}
             >
-              A passionate full-stack developer crafting beautiful and
+              A passionate frontend developer crafting beautiful and
               performant web experiences with modern technologies.
             </motion.p>
 
@@ -642,8 +642,6 @@ return (
                 skills={[
                   "Node.js",
                   "MY sql",
-                  // "Python",
-                  // "Django",
                   "RESTful APIs",
                   "GraphQL",
                 ]}
